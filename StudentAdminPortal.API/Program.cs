@@ -16,6 +16,15 @@ builder.Services.AddScoped<IRepositoryStudent, RepositoryStudent>();
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("angularApiWeb", policy => {
+        policy.WithOrigins("*")
+            .AllowAnyHeader()
+            .WithMethods("GET", "POST", "PUT", "DELETE")
+            .WithExposedHeaders("*");
+        });
+});
+
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,6 +42,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("angularApiWeb");
 
 app.UseAuthorization();
 

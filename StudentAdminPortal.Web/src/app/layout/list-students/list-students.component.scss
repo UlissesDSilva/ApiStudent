@@ -1,0 +1,33 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.list-student{
+  width: 75%;
+  height: 60vh;
+  margin-top: 0;
+}
+
+.page-header {
+  background-color: #f1f1f1;
+
+  h1 {
+    padding: 16px 0;
+    margin: 0;
+  }
+}
+.container-students {
+  margin-top: 10px;
+
+  .search-information {
+    color: rgb(216, 57, 57);
+  }
+}
+
+.search-student {
+  width: 100%;
+  height: 68px;
+  margin-bottom: -20px;
+}

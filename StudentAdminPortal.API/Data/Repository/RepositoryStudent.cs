@@ -16,7 +16,14 @@ namespace StudentAdminPortal.API.Data.Repository
 
         public async Task<IEnumerable<Student>> GetAllStudent()
         {
-            return await _context.Student.Include(x => x.Address).Include(nameof(Gender)).ToListAsync();
+            var result = await _context.Student.Include(x => x.Address).Include(nameof(Gender)).ToListAsync();
+            return result;
+
+        }
+
+        public async Task<IEnumerable<Student>> GetStudentByName(string name) {
+            var result = await _context.Student.Where(x => x.FirstName.Contains(name)).Include(nameof(Gender)).ToListAsync();
+            return result;
         }
     }
 }

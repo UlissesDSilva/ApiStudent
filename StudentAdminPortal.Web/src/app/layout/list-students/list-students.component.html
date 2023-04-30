@@ -1,0 +1,73 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Students</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngIf="isLoadingResult; else loadedResults" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-template #loadedResults>
+    <div class="container-students">
+      <mat-form-field [color]="colorLabelInput" class="search-student">
+        <mat-label>{{ labelInput }}</mat-label>
+        <input
+          matInput
+          #input
+          [(ngModel)]="filter"
+          (keyup.enter)="searchStudent(input.value)"
+          (keyup)="filterStudents()"
+          placeholder="Ex: Fulano"
+          >
+      </mat-form-field>
+
+      <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8 mt-1">
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateOfBirth">
+          <th mat-header-cell *matHeaderCellDef> Date Of Birth </th>
+          <td mat-cell *matCellDef="let element"> {{element.dateOfBirth | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef> Mobile </th>
+          <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> Gender </th>
+          <td mat-cell *matCellDef="let element"> {{element.gender.description}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="countResults"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20, 30]"
+        aria-label="Select page of Students search results"
+        color="accent">
+      </mat-paginator>
+    </div>
+
+  </ng-template>
+
+</div>

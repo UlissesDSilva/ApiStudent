@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using StudentAdminPortal.API.Models.DomainModels;
-using StudentAdminPortal.API.Data;
 using StudentAdminPortal.API.Data.IRepository;
-using StudentAdminPortal.API.Data.Repository;
 using AutoMapper;
 
 namespace StudentAdminPortal.API.Controllers
@@ -24,8 +21,14 @@ namespace StudentAdminPortal.API.Controllers
         [Route("all")]
         public async Task<ActionResult> GetAllStudent(){
             var students =  await _repositoryStudent.GetAllStudent();
-
             return Ok(_mapper.Map<IEnumerable<Student>>(students));
+        }
+
+        [HttpGet]
+        [Route("{name?}")]
+        public async Task<ActionResult> GetStudentByName(string name){
+            var studentsByName = await _repositoryStudent.GetStudentByName(name);
+            return Ok(_mapper.Map<IEnumerable<Student>>(studentsByName));
         }
     }
 }
