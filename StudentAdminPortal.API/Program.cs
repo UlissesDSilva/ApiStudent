@@ -13,6 +13,7 @@ builder.Services.AddDbContext<StudentContext>(options =>
 //Add Scope
 builder.Services.AddScoped<StudentContext>();
 builder.Services.AddScoped<IRepositoryStudent, RepositoryStudent>();
+builder.Services.AddScoped<IRepositoryGender, RepositoryGender>();
 
 builder.Services.AddControllers();
 

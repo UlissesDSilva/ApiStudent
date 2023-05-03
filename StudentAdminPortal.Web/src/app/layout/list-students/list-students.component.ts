@@ -4,6 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { AppStrings } from 'src/app/core/constants/appString';
 import StudentViewModel from 'src/app/core/models/student.model';
 
@@ -16,8 +17,9 @@ export class ListStudentsComponent implements OnInit {
   studentList: StudentViewModel[] = [];
   studentName: string = '';
   labelInput: string = AppStrings.searchStudentByName;
+  labelHeader: string = AppStrings.studentsList;
   filter: string= '';
-  displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile', 'gender'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile', 'gender', 'edit'];
   dataSource: MatTableDataSource<StudentViewModel> = new MatTableDataSource<StudentViewModel>();
   countResults: number = 0;
   isLoadingResult: boolean = true;
@@ -35,7 +37,7 @@ export class ListStudentsComponent implements OnInit {
     }
   }
 
-  constructor( private studentService: StudentService) {
+  constructor( private studentService: StudentService, private router: Router,) {
   }
 
   ngOnInit(): void {
@@ -75,5 +77,11 @@ export class ListStudentsComponent implements OnInit {
 
   filterStudents() {
     this.dataSource.filter = this.filter;
+  }
+
+  goToStudent(student: string) {
+    console.log(student);
+
+    this.router.navigate(['student', student])
   }
 }

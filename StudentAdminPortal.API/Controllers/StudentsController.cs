@@ -19,16 +19,23 @@ namespace StudentAdminPortal.API.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<ActionResult> GetAllStudent(){
+        public async Task<ActionResult> GetAllStudents(){
             var students =  await _repositoryStudent.GetAllStudent();
             return Ok(_mapper.Map<IEnumerable<Student>>(students));
         }
 
         [HttpGet]
-        [Route("{name?}")]
-        public async Task<ActionResult> GetStudentByName(string name){
+        [Route("{name}")]
+        public async Task<ActionResult> GetStudentsByName(string name){
             var studentsByName = await _repositoryStudent.GetStudentByName(name);
             return Ok(_mapper.Map<IEnumerable<Student>>(studentsByName));
+        }
+
+        [HttpGet]
+        [Route("id/{id?}")]
+        public async Task<ActionResult> GetSudentById(Guid id) {
+            var student = await _repositoryStudent.GetStudentById(id);
+            return Ok(_mapper.Map<Student>(student));
         }
     }
 }

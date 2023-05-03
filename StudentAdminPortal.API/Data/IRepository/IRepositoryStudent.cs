@@ -6,5 +6,6 @@ namespace StudentAdminPortal.API.Data.IRepository
     {
         Task<IEnumerable<Student>> GetAllStudent();
         Task<IEnumerable<Student>> GetStudentByName(string name);
+        Task<Student> GetStudentById(Guid id);
     }
 }

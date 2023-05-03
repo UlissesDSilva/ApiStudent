@@ -18,4 +18,8 @@ export class StudentService extends BaseService {
   getStudentByName<T>(name: string): Observable<T> {
     return this.get<T>(`student/${name}`);
   }
+
+  getStudentById<T>(id: string): Observable<T>{
+    return this.get<T>(`student/id/${id}`);
+  }
 }

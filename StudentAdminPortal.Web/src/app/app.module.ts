@@ -44,16 +44,18 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
 import { ListStudentsComponent } from './layout/list-students/list-students.component';
-import { CadStudentComponent } from './layout/cad-student/cad-student.component';
+import { StudentComponent } from './layout/student/student.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopNavComponent,
     ListStudentsComponent,
-    CadStudentComponent
+    StudentComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
