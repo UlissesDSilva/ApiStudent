@@ -1,71 +1,142 @@
-<app-header [label]="labelHeader"></app-header>
+<app-header [label]="titleHeader"></app-header>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 row end-xs">
-      <a routerLink="/" color="primary" mat-raised-button>
-        <mat-icon>chevron_left</mat-icon>
-        Go to back!
-      </a>
+<ng-template  #loadedResults>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<div class="container" *ngIf="!isLoadingResult; else loadedResults">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 row end-xs">
+        <a routerLink="/" color="primary" mat-raised-button>
+          <mat-icon>chevron_left</mat-icon>
+          Go to back!
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-2 form">
+    <div class="form-field">
+      <form class="example-form" #studentDetailsForm="ngForm">
+        <div class="row">
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>First Name</mat-label>
+            <input
+              [(ngModel)]="student.firstName"
+              name="firstName"
+              matInput
+              placeholder="Ex. Fulano"
+              required>
+              <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>Last Name</mat-label>
+            <input
+              [(ngModel)]="student.lastName"
+              name="lastName"
+              matInput
+              placeholder="Ex. Fulano"
+              value="{{student.lastName}}"
+              required>
+              <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="student.email"
+              name="email"
+              matInput type="email"
+              placeholder="Ex. fulano@email.com"
+              value="{{student.email}}"
+              required>
+              <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>Telephone</mat-label>
+            <input
+              [(ngModel)]="student.mobile"
+              name="mobile"
+              matInput
+              type="tel"
+              placeholder="Ex. 99 99999-9999"
+              value="{{student.mobile}}"
+              required>
+              <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>Physical Address</mat-label>
+            <textarea
+              [(ngModel)]="student.address.physicalAddress"
+              name="physicalAddress"
+              matInput
+              placeholder="Ex. Street a, N 00"
+              value="{{student.address.physicalAddress}}"
+              required=""></textarea>
+              <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>Postal Address</mat-label>
+            <textarea
+              [(ngModel)]="student.address.postalAddress"
+              name="postalAddress"
+              matInput
+              placeholder="Ex. 00000-000"
+              value="{{student.address.postalAddress}}"
+              required=""></textarea>
+              <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="example-full-width form-student-field" [color]="colorLabelInput">
+            <mat-label>Date of birth</mat-label>
+            <input
+              [(ngModel)]="student.dateOfBirth"
+              name="dateOfBirth"
+              matInput
+              placeholder="01/08/1994"
+              [matDatepicker]="picker"
+              required>
+              <mat-error>Fill in this field</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill"  [color]="colorLabelInput">
+            <mat-label>Gender</mat-label>
+            <mat-select [(ngModel)]="student.genderId" name="id" required>
+              <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                {{gender.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error>Fill in this field</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row start-xs">
+              <button mat-raised-button color="primary" (click)="studentId == null ? createStudent() : updateStudent()"> Save </button>
+              <button mat-raised-button color="warn" *ngIf="studentId != null" (click)="deleteStudent()"> Delete </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-3 form-image">
+      <div class="row center-xs">
+        <div class="image-container">
+          <img [src]="profileImage" alt="Image student" (click)="imageUpload.click()">
+        </div>
+        <input hidden type="file" #imageUpload (change)="selectedImage($event)" accept="image/*">
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container mt-1">
-  <form class="example-form">
-    <div>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>First Name</mat-label>
-        <input matInput placeholder="Ex. Fulano" value="{{student?.firstName}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Ex. Fulano" value="{{student?.lastName}}">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" placeholder="Ex. fulano@email.com" value="{{student?.email}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>Telephone</mat-label>
-        <input matInput type="tel" placeholder="Ex. 99 99999-9999" value="{{student?.mobile}}">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>Physical Address</mat-label>
-        <textarea matInput placeholder="Ex. Street a, N 00" value="{{student?.address?.physicalAddress}}"></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>Postal Address</mat-label>
-        <textarea matInput placeholder="Ex. 00000-000" value="{{student?.address?.postalAddress}}"></textarea>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field class="example-full-width form-student" [color]="colorLabelInput">
-        <mat-label>Date of birth</mat-label>
-        <input
-          matInput
-          placeholder="Ex. Fulano"
-          value="{{student?.dateOfBirth}}"
-          [matDatepicker]="picker"
-          >
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="fill"  [color]="colorLabelInput">
-        <mat-label>Gender</mat-label>
-        <!-- <mat-select [(ngModel)]="selectedValue" name="gender">
-          <mat-option *ngFor="let gender of genders" [value]="selectedValue">
-            {{gender.description}}
-          </mat-option>
-        </mat-select> -->
-        <input matInput [value]="student?.gender?.description">
-      </mat-form-field>
-    </div>
-  </form>
-</div>
 
 

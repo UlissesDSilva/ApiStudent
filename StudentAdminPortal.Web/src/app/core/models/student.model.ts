@@ -9,6 +9,7 @@ export default interface StudentViewModel {
   email: string,
   mobile: number,
   profileImageUrl?: string,
+  genderId: string,
   gender: GenderViewModel,
   address: AddressViewModel
 }

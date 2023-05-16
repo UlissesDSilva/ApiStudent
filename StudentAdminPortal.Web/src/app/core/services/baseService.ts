@@ -1,8 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "src/app/environments/environment";
 
 export default class BaseService {
-  private readonly baseApiUrl = "http://localhost:5018";
+  protected readonly baseApiUrl = environment.baseApiUrl;
 
   protected constructor(private http: HttpClient) {
     this.http = http;
@@ -15,6 +16,13 @@ export default class BaseService {
   post<T>(path: string, body: any | null): Observable<T> {
     return this.http.post<T>(`${this.baseApiUrl}/${path}`, body, {headers: { 'Content-Type': 'application/json;' }});
   }
+  postMultipart<T>(path: string, body: any | null): Observable<T> {
+    let headers = new HttpHeaders({
+        enctype: 'multipart/form-data',
+        Accept: 'application/json'
+    });
+    return this.http.post<T>(`${this.baseApiUrl}/${path}`, body, { headers: headers });
+}
 
   put<T>(path: string, body: any | null): Observable<T> {
     return this.http.put<T>(`${this.baseApiUrl}/${path}`, body, {headers: { 'Content-Type': 'application/json;' }});

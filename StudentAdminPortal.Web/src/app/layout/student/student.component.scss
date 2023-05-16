@@ -1,5 +1,41 @@
 
-.form-student {
+.form {
+  display: flex;
+
+  &-field {
+    width: 85%;
+  }
+
+
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    background-color: #f1f1f1;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+
+    img {
+      width: 195px;
+    }
+  }
+}
+
+.form-student-field {
   width: 45%;
   margin-right: 5px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+button {
+  margin-right: 10px;
 }

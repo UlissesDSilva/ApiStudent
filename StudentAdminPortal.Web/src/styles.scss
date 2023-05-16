@@ -9,3 +9,15 @@
 .mt-1 {
   margin-top: 1em;
 }
+
+.mt-2 {
+  margin-top: 2em;
+}
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #45ce8e;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #dd4747;
+}

@@ -37,8 +37,7 @@ export class ListStudentsComponent implements OnInit {
     }
   }
 
-  constructor( private studentService: StudentService, private router: Router,) {
-  }
+  constructor( private studentService: StudentService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllStudent();
@@ -80,8 +79,6 @@ export class ListStudentsComponent implements OnInit {
   }
 
   goToStudent(student: string) {
-    console.log(student);
-
     this.router.navigate(['student', student])
   }
 }
